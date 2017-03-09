@@ -16,7 +16,7 @@ URL:		https://sourceforge.net/projects/dhcp4java/
 Source0:	%{name}-%{version}.tar.xz
 BuildArch:	noarch
 
-BuildRequires:	javapackages-local
+BuildRequires:	jpackage-utils
 BuildRequires:	ant
 
 %description
