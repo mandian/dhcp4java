@@ -14,10 +14,12 @@ URL:		https://sourceforge.net/projects/dhcp4java/
 # find dhcp4java-1.00 -name \.jar -type f -delete 2> /dev/null
 # tar Jcf dhcp4java-1.00.tar.xz dhcp4java-1.00
 Source0:	%{name}-%{version}.tar.xz
+Source1:	%{name}.bnd
 BuildArch:	noarch
 
 BuildRequires:	javapackages-local
 BuildRequires:	ant
+BuildRequires:	aqute-bnd
 
 %description
 A Java DHCP API suitable for client, server, relay... development.
@@ -31,10 +33,10 @@ This API is used in the "dhcpd-j" server.
 #----------------------------------------------------------------------------
 
 %package javadoc
-Summary:	API documentation for %{oname}
+Summary:	API documentation for %{name}
 
 %description javadoc
-API documentation for %{oname}.
+API documentation for %{name}.
 
 %files javadoc
 %doc %{_javadocdir}/%{name}
@@ -47,8 +49,18 @@ API documentation for %{oname}.
 find . -name "*.jar" -delete
 find . -name "*.class" -delete
 
+# .bnd
+cp %{SOURCE1} %{name}.bnd
+
+# fix version in manifest
+sed -i -e "s|@VERSION@|%{version}|g" %{name}.bnd
+
 %build
 %ant jar javadoc-api
+
+# add OSGi manifest into jar
+java -jar $(build-classpath aqute-bnd) wrap -properties %{name}.bnd _dist/%{name}-%{version}.jar
+mv %{name}-%{version}.bar _dist/%{name}-%{version}.jar
 
 # fix jar-not-indexed warning
 pushd _dist

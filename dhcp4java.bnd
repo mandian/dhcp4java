@@ -1,0 +1,9 @@
+Bundle-Name:           dhcp4java
+Bundle-Version:        @VERSION@
+Import-Package:        *
+Bundle-License:        https://opensource.org/licenses/LGPL-2.1
+Export-Package:        org.dhcp4java.*
+Bundle-Description:    A Java DHCP API suitable for client, server, relay... development
+Bundle-Vendor:         https://sourceforge.net/projects/dhcp4java/
+Specification-Title:   dhcp4java
+Specification-Version: @VERSION@
